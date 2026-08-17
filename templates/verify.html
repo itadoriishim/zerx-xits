@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Verification — ZERX XIT{% endblock %}
+
+{% block content %}
+<section class="page">
+    <div class="container container-sm">
+        <header class="page-header">
+            <span class="section-tag">Verification</span>
+            <h1 class="page-title">Verify to <span class="logo-accent">generate</span></h1>
+            <p class="page-desc">Required before every free generation. VIP members skip this step entirely.</p>
+        </header>
+
+        <div class="verify-progress">
+            <div class="progress-bar-container"><div class="progress-bar" id="verifyProgress" style="width:0%"></div></div>
+            <div class="progress-steps">
+                <div class="pstep active">Join</div>
+                <div class="pstep">Share</div>
+                <div class="pstep">Code</div>
+            </div>
+        </div>
+
+        <div class="card step-card" data-step="1">
+            <div class="step-header">
+                <span class="step-number">1</span>
+                <div><h3>Join the channels</h3><p>Codes are posted in both channels.</p></div>
+            </div>
+            <div class="join-links">
+                <a href="#" class="join-link" id="btnWhatsapp" target="_blank" rel="noopener">
+                    <span class="join-text"><strong>WhatsApp channel</strong><small>Official updates</small></span>
+                    <span class="join-arrow">→</span>
+                </a>
+                <a href="#" class="join-link" id="btnTelegram" target="_blank" rel="noopener">
+                    <span class="join-text"><strong>Telegram channel</strong><small>Main community</small></span>
+                    <span class="join-arrow">→</span>
+                </a>
+            </div>
+            <button class="btn btn-primary btn-full" id="markJoined">I have joined</button>
+        </div>
+
+        <div class="card step-card locked" data-step="2">
+            <div class="step-header">
+                <span class="step-number">2</span>
+                <div><h3>Share the invite</h3><p>Share it <strong id="shareCount">5</strong> times with friends or groups.</p></div>
+            </div>
+            <div class="share-counter">
+                <span class="counter-label">Shares counted</span>
+                <span class="counter-value" id="shareCounter">0 / 5</span>
+            </div>
+            <button class="btn btn-primary btn-full" id="btnShare">Share on WhatsApp</button>
+            <p class="note">The invite opens directly in WhatsApp (or your share sheet, so you can pick WhatsApp Business too) and is copied to your clipboard as a backup.</p>
+        </div>
+
+        <div class="card step-card locked" data-step="3">
+            <div class="step-header">
+                <span class="step-number">3</span>
+                <div><h3>Enter the verification code</h3><p>Use the current code from the channels.</p></div>
+            </div>
+            <input type="text" class="form-input code-input" id="verifyCode" placeholder="Enter code" maxlength="30" autocomplete="off">
+            <button class="btn btn-primary btn-full" id="btnVerify">Verify and continue</button>
+            <p class="warning-note">You have three attempts. After the third wrong code this device is restricted.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/verify.js') }}"></script>
+{% endblock %}

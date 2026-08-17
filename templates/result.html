@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Your Sensitivity — ZERX XIT{% endblock %}
+
+{% block content %}
+<section class="page">
+    <div class="container container-md">
+        <header class="page-header">
+            <span class="section-tag">Result</span>
+            <h1 class="page-title">Your <span class="logo-accent">sensitivity</span></h1>
+            <p class="page-desc" id="resDevice">Loading…</p>
+            <div class="result-meta">
+                <span class="chip" id="resStyle">—</span>
+                <span class="chip" id="resTune" style="display:none">—</span>
+                <span class="chip" id="resTime">—</span>
+                <span class="chip" id="resId">—</span>
+            </div>
+        </header>
+
+        <div class="sens-grid">
+            <div class="sens-card"><div class="sens-label">General</div><div class="sens-value" id="valGeneral">—</div><div class="sens-bar"><div class="sens-fill" id="barGeneral"></div></div></div>
+            <div class="sens-card"><div class="sens-label">Red dot</div><div class="sens-value" id="valRedDot">—</div><div class="sens-bar"><div class="sens-fill" id="barRedDot"></div></div></div>
+            <div class="sens-card"><div class="sens-label">2x scope</div><div class="sens-value" id="val2x">—</div><div class="sens-bar"><div class="sens-fill" id="bar2x"></div></div></div>
+            <div class="sens-card"><div class="sens-label">4x scope</div><div class="sens-value" id="val4x">—</div><div class="sens-bar"><div class="sens-fill" id="bar4x"></div></div></div>
+            <div class="sens-card"><div class="sens-label">Sniper</div><div class="sens-value" id="valSniper">—</div><div class="sens-bar"><div class="sens-fill" id="barSniper"></div></div></div>
+            <div class="sens-card"><div class="sens-label">Free look</div><div class="sens-value" id="valFreeLook">—</div><div class="sens-bar"><div class="sens-fill" id="barFreeLook"></div></div></div>
+            <div class="sens-card sens-dpi"><div class="sens-label">DPI</div><div class="sens-value" id="valDpi">—</div><div class="sens-bar"><div class="sens-fill" id="barDpi"></div></div></div>
+        </div>
+
+        <div class="result-actions">
+            <button class="btn btn-primary" id="btnCopy">Copy settings</button>
+            <button class="btn btn-secondary" id="btnShare">Share</button>
+            <a href="/generator" class="btn btn-outline">Generate again</a>
+            <a href="/xit" class="btn btn-outline">Open XIT</a>
+        </div>
+
+        <div class="card opt-score" id="optScoreCard">
+            <div class="score-ring">
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                    <circle class="score-bg" cx="60" cy="60" r="50"/>
+                    <circle class="score-fill" id="scoreCircle" cx="60" cy="60" r="50"/>
+                </svg>
+                <div class="score-text">
+                    <span class="score-num" id="scoreNum">0</span>
+                    <span class="score-label">Device score</span>
+                </div>
+            </div>
+            <div class="score-info">
+                <h3>How this was calculated</h3>
+                <p id="calcNote">Values are derived from your processor, GPU, RAM, refresh rate and screen size, then adjusted for your play style.</p>
+                <ul class="note-list" id="resNotes"></ul>
+            </div>
+        </div>
+
+        <h2 class="section-subtitle">Recommended device setup</h2>
+        <p class="section-lead">Apply these on your phone — a website cannot change Android settings for you.</p>
+        <div class="tips-container">
+            <div class="card tips-card"><h3 class="tips-title">Phone settings</h3><ul class="tips-list" id="tipsPhone"></ul></div>
+            <div class="card tips-card"><h3 class="tips-title">Developer options</h3><ul class="tips-list" id="tipsDev"></ul></div>
+            <div class="card tips-card"><h3 class="tips-title">In-game</h3><ul class="tips-list" id="tipsGaming"></ul></div>
+            <div class="card tips-card"><h3 class="tips-title">Optimization</h3><ul class="tips-list" id="tipsOpt"></ul></div>
+            <div class="card tips-card"><h3 class="tips-title">Battery &amp; thermals</h3><ul class="tips-list" id="tipsBattery"></ul></div>
+            <div class="card tips-card"><h3 class="tips-title">Performance</h3><ul class="tips-list" id="tipsPerf"></ul></div>
+            <div class="card tips-card"><h3 class="tips-title">Sensitivity advice</h3><ul class="tips-list" id="tipsSens"></ul></div>
+        </div>
+
+        <div class="card vip-extra" id="vipExtra" style="display:none">
+            <div class="vip-badge-large">VIP guidance</div>
+            <ul class="tips-list" id="vipTipsGrid"></ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/result.js') }}"></script>
+{% endblock %}

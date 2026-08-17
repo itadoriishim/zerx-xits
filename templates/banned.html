@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Banned — ZERX XIT{% endblock %}
+
+{% block content %}
+<section class="banned-hero">
+    <div class="container">
+        <div class="banned-card glass">
+            <div class="banned-icon">🚫</div>
+            <h1 class="banned-title">ACCESS <span class="logo-accent">BLOCKED</span></h1>
+            <p class="banned-subtitle">Your device has been permanently banned from ZERX XIT.</p>
+
+            <div class="ban-details">
+                <div class="ban-item">
+                    <span class="ban-label">Reason</span>
+                    <span class="ban-value">{{ ban.reason or 'Invalid Verification Code' }}</span>
+                </div>
+                <div class="ban-item">
+                    <span class="ban-label">ZERX ID</span>
+                    <span class="ban-value ban-id">{{ ban.zerx_id }}</span>
+                </div>
+                <div class="ban-item">
+                    <span class="ban-label">Status</span>
+                    <span class="ban-value ban-status">PERMANENT BAN</span>
+                </div>
+                <div class="ban-item">
+                    <span class="ban-label">Date</span>
+                    <span class="ban-value">{{ ban.created_at }}</span>
+                </div>
+            </div>
+
+            <div class="ban-actions">
+                <p class="ban-note">Believe this was a mistake? Request an unban via Telegram.</p>
+                <button class="btn btn-primary btn-glow" id="btnAppeal">
+                    <span class="btn-icon">📨</span> REQUEST UNBAN
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.getElementById('btnAppeal').addEventListener('click', async () => {
+    const zerxId = '{{ ban.zerx_id }}';
+    const message = `Hello Admin,
+
+I would like to request an unban for my device.
+
+ZERX ID: ${zerxId}
+
+Reason:
+I believe this ban was issued by mistake.
+
+Please review my request.
+
+Thank you.`;
+
+    // Try to get admin telegram from settings
+    const settings = await api('/api/settings');
+    const adminUser = settings.admin_telegram ? settings.admin_telegram.replace('@', '') : 'zerxadmin';
+
+    const text = encodeURIComponent(message);
+    window.open(`https://t.me/${adminUser}?start=${text.substring(0, 50)}`, '_blank');
+
+    // Also submit appeal to backend
+    await api('/api/appeal', {
+        method: 'POST',
+        body: JSON.stringify({ zerx_id: zerxId, message: 'Ban appeal submitted via Telegram.' })
+    });
+
+    showToast('Appeal submitted. Wait for admin review.', 'success');
+});
+</script>
+{% endblock %}

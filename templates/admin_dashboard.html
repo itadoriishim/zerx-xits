@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — ZERX XIT</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-brand">
+            <span class="sidebar-logo">ZERX <span class="logo-accent">ADMIN</span></span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-link active" data-page="dashboard">
+                <span class="slink-icon">📊</span> Dashboard
+            </a>
+            <a href="#" class="sidebar-link" data-page="users">
+                <span class="slink-icon">👥</span> Users
+            </a>
+            <a href="#" class="sidebar-link" data-page="bans">
+                <span class="slink-icon">🚫</span> Bans
+            </a>
+            <a href="#" class="sidebar-link" data-page="appeals">
+                <span class="slink-icon">📨</span> Appeals
+            </a>
+            <a href="#" class="sidebar-link" data-page="vip">
+                <span class="slink-icon">👑</span> VIP Requests
+            </a>
+            <a href="#" class="sidebar-link" data-page="devices">
+                <span class="slink-icon">📱</span> Devices
+            </a>
+            <a href="#" class="sidebar-link" data-page="settings">
+                <span class="slink-icon">⚙️</span> Settings
+            </a>
+            <a href="#" class="sidebar-link" data-page="analytics">
+                <span class="slink-icon">📈</span> Analytics
+            </a>
+        </nav>
+        <div class="sidebar-bottom">
+            <button class="btn btn-outline btn-full" id="btnLogout">
+                <span class="btn-icon">🚪</span> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Header -->
+        <header class="admin-header">
+            <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+            <h1 class="admin-title" id="pageTitle">Dashboard</h1>
+            <div class="admin-actions">
+                <span class="admin-status">● Online</span>
+            </div>
+        </header>
+
+        <!-- Dashboard Page -->
+        <div class="admin-page active" id="page-dashboard">
+            <div class="stats-grid">
+                <div class="stat-card glass">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stTotalUsers">0</span>
+                        <span class="stat-label">Total Users</span>
+                    </div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stVerified">0</span>
+                        <span class="stat-label">Verified</span>
+                    </div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-icon">👑</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stVip">0</span>
+                        <span class="stat-label">VIP Users</span>
+                    </div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stGenerations">0</span>
+                        <span class="stat-label">Generations</span>
+                    </div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-icon">📨</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stAppeals">0</span>
+                        <span class="stat-label">Pending Appeals</span>
+                    </div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-icon">🚫</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stBanned">0</span>
+                        <span class="stat-label">Banned Devices</span>
+                    </div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stToday">0</span>
+                        <span class="stat-label">Today's Visitors</span>
+                    </div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-icon">🤖</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stAi">Active</span>
+                        <span class="stat-label">AI Status</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dash-card glass">
+                    <h3 class="dash-title">Recent Activity</h3>
+                    <div class="dash-list" id="dashActivity"></div>
+                </div>
+                <div class="dash-card glass">
+                    <h3 class="dash-title">Recent Users</h3>
+                    <div class="dash-list" id="dashUsers"></div>
+                </div>
+                <div class="dash-card glass">
+                    <h3 class="dash-title">Popular Phones</h3>
+                    <div class="dash-list" id="dashPhones"></div>
+                </div>
+                <div class="dash-card glass">
+                    <h3 class="dash-title">Play Styles</h3>
+                    <div class="dash-list" id="dashStyles"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Page -->
+        <div class="admin-page" id="page-users">
+            <div class="page-header">
+                <input type="text" class="form-input search-input" id="userSearch" placeholder="Search by ZERX ID, Device ID, Brand, Model...">
+                <button class="btn btn-primary" id="btnSearchUsers">Search</button>
+            </div>
+            <div class="table-container glass">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ZERX ID</th>
+                            <th>Device ID</th>
+                            <th>Brand/Model</th>
+                            <th>Verified</th>
+                            <th>VIP</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Bans Page -->
+        <div class="admin-page" id="page-bans">
+            <div class="page-header">
+                <select class="form-input" id="banFilter">
+                    <option value="active">Active Bans</option>
+                    <option value="removed">Removed Bans</option>
+                </select>
+            </div>
+            <div class="table-container glass">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ZERX ID</th>
+                            <th>Device ID</th>
+                            <th>Reason</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bansTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Appeals Page -->
+        <div class="admin-page" id="page-appeals">
+            <div class="table-container glass">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ZERX ID</th>
+                            <th>Device ID</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appealsTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- VIP Requests Page -->
+        <div class="admin-page" id="page-vip">
+            <div class="page-header">
+                <select class="form-input" id="vipFilter">
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="">All</option>
+                </select>
+            </div>
+            <div class="table-container glass">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ZERX ID</th>
+                            <th>Sender Name</th>
+                            <th>Reference</th>
+                            <th>Receipt</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vipTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Devices Page -->
+        <div class="admin-page" id="page-devices">
+            <div class="page-header">
+                <select class="form-input" id="deviceBrandFilter">
+                    <option value="">All Brands</option>
+                </select>
+                <button class="btn btn-primary" id="btnAddDevice">+ Add Device</button>
+                <button class="btn btn-secondary" id="btnBulkImport">Bulk Import</button>
+            </div>
+            <div class="table-container glass">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Processor</th>
+                            <th>GPU</th>
+                            <th>RAM</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="devicesTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div class="admin-page" id="page-settings">
+            <div class="settings-grid">
+                <div class="settings-card glass">
+                    <h3 class="settings-title">Verification Settings</h3>
+                    <div class="form-group">
+                        <label>Verification Code</label>
+                        <input type="text" class="form-input" id="setCode" value="ZERX FOR 2027">
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp Channel</label>
+                        <input type="text" class="form-input" id="setWhatsapp">
+                    </div>
+                    <div class="form-group">
+                        <label>Telegram Main</label>
+                        <input type="text" class="form-input" id="setTelegram">
+                    </div>
+                    <div class="form-group">
+                        <label>Telegram Backup</label>
+                        <input type="text" class="form-input" id="setBackup">
+                    </div>
+                    <div class="form-group">
+                        <label>Shares Required</label>
+                        <input type="number" class="form-input" id="setShares" value="5" min="1" max="20">
+                    </div>
+                </div>
+
+                <div class="settings-card glass">
+                    <h3 class="settings-title">Download Settings</h3>
+                    <div class="form-group">
+                        <label>MediaFire Link</label>
+                        <input type="text" class="form-input" id="setMediafire">
+                    </div>
+                    <div class="form-group">
+                        <label>Setup Video</label>
+                        <input type="text" class="form-input" id="setVideo">
+                    </div>
+                </div>
+
+                <div class="settings-card glass">
+                    <h3 class="settings-title">VIP Settings</h3>
+                    <div class="form-group">
+                        <label>VIP Price</label>
+                        <input type="text" class="form-input" id="setVipPrice" value="₦2000">
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="setVipEnabled" checked> Enable VIP
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="setPremiumAi" checked> Enable Premium AI
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-card glass">
+                    <h3 class="settings-title">AI Settings</h3>
+                    <div class="form-group">
+                        <label>Gemini API Key</label>
+                        <input type="password" class="form-input" id="setApiKey" placeholder="sk-...">
+                    </div>
+                    <div class="form-group">
+                        <label>Model</label>
+                        <input type="text" class="form-input" id="setModel" value="gemini-1.5-flash">
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="setAiEnabled" checked> Enable AI
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-glow" id="btnSaveSettings">
+                <span class="btn-icon">💾</span> SAVE ALL SETTINGS
+            </button>
+        </div>
+
+        <!-- Analytics Page -->
+        <div class="admin-page" id="page-analytics">
+            <div class="analytics-grid">
+                <div class="analytics-card glass">
+                    <h3>Daily Visitors (14 Days)</h3>
+                    <div class="chart-placeholder" id="chartVisitors">Loading...</div>
+                </div>
+                <div class="analytics-card glass">
+                    <h3>Daily Generations (7 Days)</h3>
+                    <div class="chart-placeholder" id="chartGenerations">Loading...</div>
+                </div>
+                <div class="analytics-card glass">
+                    <h3>Verification Success Rate</h3>
+                    <div class="big-stat" id="statVerifyRate">0%</div>
+                </div>
+                <div class="analytics-card glass">
+                    <h3>Appeal Statistics</h3>
+                    <div class="appeal-stats" id="appealStats"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

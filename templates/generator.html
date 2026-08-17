@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Sensitivity Generator — ZERX XIT{% endblock %}
+
+{% block content %}
+<section class="page">
+    <div class="container container-md">
+        <header class="page-header">
+            <span class="section-tag">Sensitivity Engine</span>
+            <h1 class="page-title">Generate your <span class="logo-accent">sensitivity</span></h1>
+            <p class="page-desc">Pick your device, choose a play style, then generate. Values are calculated from your hardware — no guessing.</p>
+        </header>
+
+        <ol class="flow-steps">
+            <li class="flow-step done">1. Device</li>
+            <li class="flow-step">2. Play style</li>
+            <li class="flow-step">3. Fine tuning</li>
+            <li class="flow-step">4. Generate</li>
+        </ol>
+
+        <!-- 1. Device -->
+        <section class="card" id="deviceCard">
+            <div class="card-head">
+                <h2 class="card-title">1. Device</h2>
+                <p class="card-subtitle">Use this phone or search any supported model.</p>
+            </div>
+
+            <div class="option-tabs" role="tablist">
+                <button class="option-tab active" data-option="this" role="tab">
+                    <span class="tab-label">This phone</span>
+                    <span class="tab-desc">Detect automatically</span>
+                </button>
+                <button class="option-tab" data-option="other" role="tab">
+                    <span class="tab-label">Search device</span>
+                    <span class="tab-desc">Any supported model</span>
+                </button>
+            </div>
+
+            <!-- This phone -->
+            <div class="option-panel active" id="panelThis">
+                <div class="detect-grid">
+                    <div class="detect-item detect-item-wide">
+                        <span class="detect-label">Detected device</span>
+                        <span class="detect-value" id="dModel">Detecting…</span>
+                    </div>
+                    <div class="detect-item"><span class="detect-label">Operating system</span><span class="detect-value" id="dOs">—</span></div>
+                    <div class="detect-item"><span class="detect-label">Browser</span><span class="detect-value" id="dBrowser">—</span></div>
+                    <div class="detect-item"><span class="detect-label">Screen</span><span class="detect-value" id="dScreen">—</span></div>
+                    <div class="detect-item"><span class="detect-label">Pixel ratio</span><span class="detect-value" id="dPixel">—</span></div>
+                    <div class="detect-item"><span class="detect-label">Touch input</span><span class="detect-value" id="dTouch">—</span></div>
+                    <div class="detect-item"><span class="detect-label">Memory</span><span class="detect-value" id="dMemory">—</span></div>
+                    <div class="detect-item"><span class="detect-label">CPU threads</span><span class="detect-value" id="dCpu">—</span></div>
+                    <div class="detect-item detect-item-wide"><span class="detect-label">Graphics</span><span class="detect-value" id="dGpu">—</span></div>
+                </div>
+
+                <p class="match-status" id="matchStatus">Checking your model against the device database…</p>
+
+                <p class="note">
+                    A browser can only read what your phone reports to it. Chrome and other Chromium
+                    browsers on Android report the exact model name; Firefox, Safari and most in-app
+                    browsers do not. If your model is not detected, use <strong>Search device</strong> —
+                    the result is identical.
+                </p>
+            </div>
+
+            <!-- Search device -->
+            <div class="option-panel" id="panelOther">
+                <div class="form-group">
+                    <label class="form-label" for="deviceSearchInput">Search any device</label>
+                    <div class="device-search">
+                        <input type="text" class="form-input" id="deviceSearchInput" placeholder="e.g. Redmi Note 12, Galaxy A54, Infinix Hot 40…" autocomplete="off">
+                        <div class="search-results" id="deviceSearchResults"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="brandSelect">Or browse by brand</label>
+                        <select class="form-input" id="brandSelect"><option value="">Select brand…</option></select>
+                    </div>
+                    <div class="form-group" id="modelStep" style="display:none">
+                        <label class="form-label" for="modelSelect">Model</label>
+                        <select class="form-input" id="modelSelect"><option value="">Select model…</option></select>
+                    </div>
+                </div>
+
+                <div class="device-specs" id="deviceSpecs" style="display:none">
+                    <h4 class="specs-title">Device specifications</h4>
+                    <div class="specs-grid">
+                        <div class="spec-item"><span class="spec-label">Processor</span><span class="spec-value" id="sProc">—</span></div>
+                        <div class="spec-item"><span class="spec-label">GPU</span><span class="spec-value" id="sGpu">—</span></div>
+                        <div class="spec-item"><span class="spec-label">RAM</span><span class="spec-value" id="sRam">—</span></div>
+                        <div class="spec-item"><span class="spec-label">Android</span><span class="spec-value" id="sAndroid">—</span></div>
+                        <div class="spec-item"><span class="spec-label">Refresh rate</span><span class="spec-value" id="sRefresh">—</span></div>
+                        <div class="spec-item"><span class="spec-label">Architecture</span><span class="spec-value" id="sArch">—</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Play style -->
+        <section class="card">
+            <div class="card-head">
+                <h2 class="card-title">2. Play style</h2>
+                <p class="card-subtitle">Each style changes the calculated values, not just the label.</p>
+            </div>
+            <div class="style-chips">
+                <button type="button" class="style-chip" data-style="One Tap">One Tap</button>
+                <button type="button" class="style-chip active" data-style="Balanced">Balanced</button>
+                <button type="button" class="style-chip" data-style="Rusher">Rusher</button>
+                <button type="button" class="style-chip" data-style="Freestyle">Freestyle</button>
+                <button type="button" class="style-chip" data-style="Sniper">Sniper</button>
+                <button type="button" class="style-chip" data-style="Instaplayer">Instaplayer</button>
+            </div>
+            <p class="style-hint" id="styleHint">Well-rounded values for every situation.</p>
+        </section>
+
+        <!-- 3. Fine tuning -->
+        <section class="card">
+            <div class="card-head">
+                <h2 class="card-title">3. Fine tuning</h2>
+                <p class="card-subtitle">Optional. Adjusts every value by a fixed step so you can match your own feel.</p>
+            </div>
+            <div class="tune-options">
+                <button type="button" class="tune-option" data-tune="-2">Much lower</button>
+                <button type="button" class="tune-option" data-tune="-1">Lower</button>
+                <button type="button" class="tune-option active" data-tune="0">Recommended</button>
+                <button type="button" class="tune-option" data-tune="1">Higher</button>
+                <button type="button" class="tune-option" data-tune="2">Much higher</button>
+            </div>
+            <p class="note">Screen size and pixel density are applied automatically on top of your choice.</p>
+        </section>
+
+        <!-- VIP -->
+        <div class="vip-banner" id="vipBanner">
+            <div class="vip-banner-text">
+                <h3>VIP access</h3>
+                <p>Generate without verifying every time and unlock all XIT features.</p>
+            </div>
+            <button class="btn btn-vip" id="vipToggleBtn">Activate VIP</button>
+        </div>
+
+        <!-- 4. Generate -->
+        <div class="generate-section">
+            <button class="btn btn-primary btn-lg btn-full" id="generateBtn">Generate sensitivity</button>
+            <p class="generate-note" id="generateNote">Free users verify before every generation. VIP members generate instantly.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+{% endblock %}

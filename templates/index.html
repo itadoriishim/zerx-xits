@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}ZERX XIT — Free Fire sensitivity &amp; device optimization{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-content">
+        <span class="section-tag">ZERX XIT</span>
+        <h1 class="hero-title">Sensitivity that matches <span class="logo-accent">your phone</span></h1>
+        <p class="hero-desc">
+            Pick your device, choose a play style and get sensitivity values calculated from real
+            hardware data — processor, GPU, RAM, refresh rate and screen size — plus the exact
+            device settings to apply.
+        </p>
+        <div class="hero-buttons">
+            <a href="/generator" class="btn btn-primary btn-lg">Generate sensitivity</a>
+            <a href="/vip" class="btn btn-outline btn-lg">See VIP</a>
+        </div>
+        <p class="hero-note">Free to use. Free generations require joining our channels and sharing the invite each time.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">What you get</h2>
+        </div>
+        <div class="feature-grid">
+            <div class="card"><h3>Hardware-based values</h3><p>Every value is derived from your device specs, not a fixed preset.</p></div>
+            <div class="card"><h3>Device search</h3><p>Search any supported phone by name, or let the browser detect the one you are on.</p></div>
+            <div class="card"><h3>Play styles that matter</h3><p>One Tap, Balanced, Rusher, Freestyle, Sniper and Instaplayer each change the calculation.</p></div>
+            <div class="card"><h3>Fine tuning</h3><p>Nudge all values up or down in fixed steps until they match your feel.</p></div>
+            <div class="card"><h3>Setup guides</h3><p>Clear, manual steps for the phone settings that actually affect performance.</p></div>
+            <div class="card"><h3>VIP tools</h3><p>Skip verification and unlock the XIT optimization profile and device guides.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">How it works</h2>
+        </div>
+        <div class="steps">
+            <div class="card step-card"><div class="step-num">01</div><h3>Choose device</h3><p>Auto-detect this phone or search any supported model.</p></div>
+            <div class="card step-card"><div class="step-num">02</div><h3>Pick a style</h3><p>Select your play style and optional fine tuning.</p></div>
+            <div class="card step-card"><div class="step-num">03</div><h3>Verify</h3><p>Free users join the channels, share the invite and enter the code — required before each generation.</p></div>
+            <div class="card step-card"><div class="step-num">04</div><h3>Apply</h3><p>Copy the values into Free Fire and follow the device setup steps.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="vip">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Plans</h2>
+        </div>
+        <div class="plans-grid">
+            <div class="card plan-card">
+                <div class="plan-badge">Free</div>
+                <h3 class="plan-name">Free user</h3>
+                <div class="plan-price">₦0</div>
+                <ul class="plan-features">
+                    <li class="yes">Full sensitivity generator</li>
+                    <li class="yes">Device detection and search</li>
+                    <li class="yes">Standard setup guides</li>
+                    <li class="no">Verification before every generation</li>
+                    <li class="no">No XIT feature access</li>
+                </ul>
+                <a href="/generator" class="btn btn-outline btn-full">Start generating</a>
+            </div>
+            <div class="card plan-card plan-vip">
+                <div class="plan-badge vip-badge">VIP</div>
+                <h3 class="plan-name">VIP member</h3>
+                <div class="plan-price" id="vipPrice">₦2,000</div>
+                <ul class="plan-features">
+                    <li class="yes">Generate instantly — no verification</li>
+                    <li class="yes">All XIT features and device guides</li>
+                    <li class="yes">Extended optimization guidance</li>
+                    <li class="yes">Priority admin support</li>
+                </ul>
+                <button class="btn btn-vip btn-full vip-activate-btn">Activate VIP</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt" id="community">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Community</h2>
+            <p class="section-desc">Verification codes and updates are posted here.</p>
+        </div>
+        <div class="link-grid">
+            <a href="#" class="link-card" id="commWhatsapp" target="_blank" rel="noopener">
+                <span class="link-kind">WhatsApp</span><span class="link-title">Main channel</span><span class="link-desc">Codes and updates</span>
+            </a>
+            <a href="#" class="link-card" id="commWhatsapp2" target="_blank" rel="noopener">
+                <span class="link-kind">WhatsApp</span><span class="link-title">Second channel</span><span class="link-desc">Backup channel</span>
+            </a>
+            <a href="#" class="link-card" id="commTelegram" target="_blank" rel="noopener">
+                <span class="link-kind">Telegram</span><span class="link-title">Main channel</span><span class="link-desc">Community chat</span>
+            </a>
+            <a href="#" class="link-card" id="commLeaks" target="_blank" rel="noopener">
+                <span class="link-kind">Telegram</span><span class="link-title">OB54 leaks</span><span class="link-desc">Patch leaks</span>
+            </a>
+        </div>
+        <div class="center"><a href="/community" class="btn btn-outline">All community links</a></div>
+    </div>
+</section>
+
+<section class="section" id="faq">
+    <div class="container container-md">
+        <div class="section-header">
+            <h2 class="section-title">Questions</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">Is it free? <span class="faq-icon">+</span></button>
+                <div class="faq-answer">Yes. The generator is free — each free generation requires the join, share and code steps. VIP removes that.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How are the values calculated? <span class="faq-icon">+</span></button>
+                <div class="faq-answer">A local engine scores your device from its processor, GPU, RAM, refresh rate and screen, then applies your play style and fine tuning. No external service is required for a result.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Can the site change my phone settings? <span class="faq-icon">+</span></button>
+                <div class="faq-answer">No. A website cannot modify Android system settings. We give you the exact steps to apply on your device instead.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">My phone is not detected — what now? <span class="faq-icon">+</span></button>
+                <div class="faq-answer">Only Chromium browsers on Android report the exact model. Use "Search device" and pick your model — the result is identical.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How do I get VIP? <span class="faq-icon">+</span></button>
+                <div class="faq-answer">Pay <span id="faqVipPrice">₦2,000</span> to one of the listed accounts, upload your receipt in the activation form, and the admin approves it from the dashboard.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Will I get banned in Free Fire? <span class="faq-icon">+</span></button>
+                <div class="faq-answer">No. ZERX XIT only provides sensitivity values and setup advice. It never modifies game files.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt" id="support">
+    <div class="container container-md">
+        <div class="section-header">
+            <h2 class="section-title">Support</h2>
+        </div>
+        <div class="card support-card">
+            <p>Contact the admin for VIP activation, payment confirmation or any issue.</p>
+            <div class="support-buttons">
+                <a href="#" class="btn btn-primary" id="supportWhatsapp" target="_blank" rel="noopener">WhatsApp admin</a>
+                <a href="#" class="btn btn-secondary" id="supportTelegram" target="_blank" rel="noopener">Telegram admin</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Community — ZERX XIT{% endblock %}
+
+{% block content %}
+<section class="page">
+    <div class="container container-md">
+        <header class="page-header">
+            <span class="section-tag">Community</span>
+            <h1 class="page-title">Join the <span class="logo-accent">ZERX</span> community</h1>
+            <p class="page-desc">Verification codes, updates and OB leaks are posted in these channels.</p>
+        </header>
+
+        <div class="link-grid">
+            <a class="link-card" id="commWhatsapp" href="{{ settings.whatsapp_channel }}" target="_blank" rel="noopener">
+                <span class="link-kind">WhatsApp</span>
+                <span class="link-title">Main channel</span>
+                <span class="link-desc">Verification codes and daily updates</span>
+            </a>
+            <a class="link-card" id="commWhatsapp2" href="{{ settings.whatsapp_channel_2 }}" target="_blank" rel="noopener">
+                <span class="link-kind">WhatsApp</span>
+                <span class="link-title">Second channel</span>
+                <span class="link-desc">Backup channel — join both</span>
+            </a>
+            <a class="link-card" id="commTelegram" href="{{ settings.telegram_main }}" target="_blank" rel="noopener">
+                <span class="link-kind">Telegram</span>
+                <span class="link-title">Main channel</span>
+                <span class="link-desc">Announcements and community chat</span>
+            </a>
+            <a class="link-card" id="commLeaks" href="{{ settings.telegram_leaks or settings.telegram_backup }}" target="_blank" rel="noopener">
+                <span class="link-kind">Telegram</span>
+                <span class="link-title">OB54 leaks</span>
+                <span class="link-desc">Patch leaks and early information</span>
+            </a>
+        </div>
+
+        <h2 class="section-subtitle">Contact the admin</h2>
+        <div class="link-grid">
+            <a class="link-card accent" id="commAdminWa" href="{{ settings.admin_whatsapp }}" target="_blank" rel="noopener">
+                <span class="link-kind">WhatsApp</span>
+                <span class="link-title">Message Zerx Official</span>
+                <span class="link-desc">Payment confirmation and support</span>
+            </a>
+            <a class="link-card accent" id="commAdminTg" href="https://t.me/{{ settings.admin_telegram|replace('@','') }}" target="_blank" rel="noopener">
+                <span class="link-kind">Telegram</span>
+                <span class="link-title">{{ settings.admin_telegram }}</span>
+                <span class="link-desc">Direct admin contact</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0b0f">
+    <meta name="description" content="ZERX XIT — device-calibrated Free Fire sensitivity settings, optimization guides and VIP tools.">
+    <title>{% block title %}ZERX XIT{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="ZERX XIT" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <span class="logo-text" style="display:none">ZERX <span class="logo-accent">XIT</span></span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a></li>
+                <li><a href="/generator" class="nav-link {% if request.path == '/generator' %}active{% endif %}">Generator</a></li>
+                <li><a href="/xit" class="nav-link {% if request.path == '/xit' %}active{% endif %}">XIT Features</a></li>
+                <li><a href="/vip" class="nav-link {% if request.path == '/vip' %}active{% endif %}">VIP</a></li>
+                <li><a href="/community" class="nav-link {% if request.path == '/community' %}active{% endif %}">Community</a></li>
+                <li><a href="/admin-login" class="nav-link admin-link">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">ZERX <span class="logo-accent">XIT</span></span>
+                <p class="footer-desc">Device-calibrated Free Fire sensitivity and optimization guides.</p>
+            </div>
+            <div class="footer-cols">
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <a href="/generator">Generator</a>
+                    <a href="/xit">XIT Features</a>
+                    <a href="/vip">VIP</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Community</h4>
+                    <a href="/community">Channels</a>
+                    <a href="#" id="footerWhatsapp" target="_blank" rel="noopener">WhatsApp</a>
+                    <a href="#" id="footerTelegram" target="_blank" rel="noopener">Telegram</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <a href="#" id="footerAdminWa" target="_blank" rel="noopener">WhatsApp Admin</a>
+                    <a href="#" id="footerAdminTg" target="_blank" rel="noopener">Telegram Admin</a>
+                    <a href="/admin-login">Admin Login</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; {{ current_year }} ZERX XIT. All rights reserved.</p>
+            <p class="footer-note">Sensitivity values are recommendations — final results depend on your own aim and device condition.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- VIP Activation Modal -->
+    <div class="modal-overlay" id="vipModal" role="dialog" aria-modal="true" aria-labelledby="vipModalTitle">
+        <div class="modal-card">
+            <button class="modal-close" id="vipModalClose" aria-label="Close">&times;</button>
+            <h3 class="modal-title" id="vipModalTitle">Activate <span class="logo-accent">VIP</span></h3>
+            <p class="modal-sub">One-time payment of <strong id="vipModalPrice">₦2,000</strong>. Pay to either account, upload your receipt, and the admin activates VIP after confirming it.</p>
+
+            <div class="pay-accounts" id="payAccounts"></div>
+
+            <form class="vip-form" id="vipForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="form-label" for="vipSenderName">Name used for payment</label>
+                    <input type="text" class="form-input" id="vipSenderName" placeholder="e.g. John Doe" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="vipReference">Transaction reference (optional)</label>
+                    <input type="text" class="form-input" id="vipReference" placeholder="Transaction ID / reference" maxlength="200">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="vipReceipt">Payment receipt (screenshot or PDF)</label>
+                    <input type="file" class="form-file" id="vipReceipt" accept="image/png,image/jpeg,image/webp,application/pdf">
+                    <span class="form-help">Maximum 4MB. The admin reviews it in the dashboard.</span>
+                </div>
+                <button type="submit" class="btn btn-vip btn-full" id="vipSubmitBtn">Submit payment for confirmation</button>
+            </form>
+
+            <div class="vip-pending" id="vipPending" style="display:none">
+                <div class="pending-badge">Pending confirmation</div>
+                <p>Your payment details are with the admin. VIP unlocks automatically on this device once it is approved.</p>
+            </div>
+
+            <div class="vip-contact">
+                <p class="vip-contact-label">Need help? Contact the admin:</p>
+                <div class="vip-contact-links">
+                    <a href="#" id="vipContactWhatsapp" target="_blank" rel="noopener" class="btn btn-outline btn-sm">WhatsApp</a>
+                    <a href="#" id="vipContactTelegram" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Telegram</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+        <div class="loading-content">
+            <div class="loading-logo">ZERX <span class="logo-accent">XIT</span></div>
+            <div class="loading-bar-container"><div class="loading-bar"></div></div>
+            <p class="loading-text" id="loadingText">Calculating your settings…</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/share.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

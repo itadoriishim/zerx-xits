@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}VIP — ZERX XIT{% endblock %}
+
+{% block content %}
+<section class="page">
+    <div class="container container-md">
+        <header class="page-header">
+            <span class="section-tag">VIP</span>
+            <h1 class="page-title">ZERX <span class="logo-accent">VIP</span></h1>
+            <p class="page-desc">One-time payment of <strong id="vipPagePrice">{{ settings.vip_price or '₦2,000' }}</strong>. Activated by the admin after your receipt is confirmed.</p>
+        </header>
+
+        <div class="vip-status-card card" id="vipStatusCard" style="display:none">
+            <h2 id="vipStatusTitle">Status</h2>
+            <p id="vipStatusText"></p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="card"><h3>No verification</h3><p>Generate as many sensitivity profiles as you want without joining and sharing each time.</p></div>
+            <div class="card"><h3>All XIT features</h3><p>Save an optimization profile and open the device-specific setup guides.</p></div>
+            <div class="card"><h3>Extended guidance</h3><p>Additional optimization steps tailored to your device in every result.</p></div>
+            <div class="card"><h3>Direct admin support</h3><p>Priority replies on WhatsApp and Telegram.</p></div>
+        </div>
+
+        <h2 class="section-subtitle">How activation works</h2>
+        <ol class="flow-list">
+            <li>Pay {{ settings.vip_price or '₦2,000' }} to either account below.</li>
+            <li>Click <strong>Activate VIP</strong> and upload your payment receipt.</li>
+            <li>The admin reviews the receipt in the dashboard.</li>
+            <li>Once approved, VIP unlocks automatically on this device.</li>
+        </ol>
+
+        <div class="pay-accounts static-accounts">
+            <div class="pay-account">
+                <div class="pay-bank">{{ settings.pay1_bank }}</div>
+                <div class="pay-number"><span>{{ settings.pay1_number }}</span></div>
+                <div class="pay-name">{{ settings.pay1_name }}</div>
+            </div>
+            <div class="pay-account">
+                <div class="pay-bank">{{ settings.pay2_bank }}</div>
+                <div class="pay-number"><span>{{ settings.pay2_number }}</span></div>
+                <div class="pay-name">{{ settings.pay2_name }}</div>
+            </div>
+        </div>
+
+        <div class="generate-section">
+            <button class="btn btn-vip btn-lg vip-activate-btn">Activate VIP</button>
+            <p class="generate-note">Payments are confirmed manually — keep your receipt until VIP shows as active.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    const status = await api('/api/vip/status');
+    if (status.error) return;
+    const card = document.getElementById('vipStatusCard');
+    const title = document.getElementById('vipStatusTitle');
+    const text = document.getElementById('vipStatusText');
+    if (status.vip) {
+        card.style.display = 'block';
+        card.classList.add('ok');
+        title.textContent = 'VIP is active on this device';
+        text.textContent = 'Verification is skipped and all XIT features are unlocked.';
+    } else if (status.status === 'pending') {
+        card.style.display = 'block';
+        title.textContent = 'Payment pending confirmation';
+        text.textContent = 'The admin is reviewing your receipt. VIP unlocks automatically once approved.';
+    } else if (status.status === 'rejected') {
+        card.style.display = 'block';
+        title.textContent = 'Last submission was rejected';
+        text.textContent = 'Contact the admin or submit the correct receipt again.';
+    }
+});
+</script>
+{% endblock %}

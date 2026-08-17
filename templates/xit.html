@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}XIT Features — ZERX XIT{% endblock %}
+
+{% block content %}
+<section class="page">
+    <div class="container container-md">
+        <header class="page-header">
+            <span class="section-tag">XIT Dashboard</span>
+            <h1 class="page-title">XIT <span class="logo-accent">features</span></h1>
+            <p class="page-desc">Your saved optimization profile plus the exact device steps that apply it. Everything here is VIP-only.</p>
+        </header>
+
+        <div class="card profile-card">
+            <div class="profile-head">
+                <div>
+                    <h2 id="welcomeName">Welcome</h2>
+                    <div class="badge-row">
+                        <span class="status-badge" id="statusBadge">Unverified</span>
+                        <span class="status-badge vip" id="vipBadge" style="display:none">VIP</span>
+                    </div>
+                </div>
+                <div class="profile-live">
+                    <div><span class="pitem-label">Device</span><span class="pitem-value" id="wDevice">Detecting…</span></div>
+                    <div><span class="pitem-label">Battery</span><span class="pitem-value" id="wBattery">—</span></div>
+                    <div><span class="pitem-label">Network</span><span class="pitem-value" id="wNetwork">—</span></div>
+                </div>
+            </div>
+            <div class="profile-grid">
+                <div class="profile-item"><span class="pitem-label">ZERX ID</span><span class="pitem-value" id="pZerxId">—</span></div>
+                <div class="profile-item"><span class="pitem-label">Status</span><span class="pitem-value" id="pStatus">—</span></div>
+                <div class="profile-item"><span class="pitem-label">VIP</span><span class="pitem-value" id="pVip">—</span></div>
+                <div class="profile-item"><span class="pitem-label">Generations</span><span class="pitem-value" id="pGenCount">—</span></div>
+            </div>
+            <p class="note" id="detectNote">Model detection uses what your browser reports. Chromium browsers on Android report the exact model; others do not.</p>
+        </div>
+
+        <div class="vip-banner" id="xitLockBanner" style="display:none">
+            <div class="vip-banner-text">
+                <h3>XIT features are VIP-only</h3>
+                <p>Browse everything below. Saving a profile and opening the device guides requires VIP.</p>
+            </div>
+            <button class="btn btn-vip vip-activate-btn">Activate VIP</button>
+        </div>
+
+        <h2 class="section-subtitle">Optimization profile</h2>
+        <p class="section-lead">Switch on what you want, then open the guide for the steps to apply on your phone. A website cannot change Android system settings on its own.</p>
+
+        <div class="feature-grid" id="featureGrid">
+            <div class="card xit-feature-card" data-feature="xit_boost">
+                <div class="xf-head">
+                    <h3>XIT Boost</h3>
+                    <label class="toggle-switch"><input type="checkbox" id="toggleXitBoost"><span class="toggle-slider"></span></label>
+                </div>
+                <p>Free memory and background load before a match.</p>
+                <button class="btn btn-outline btn-sm guide-btn" data-feature="xit_boost">View device steps</button>
+            </div>
+            <div class="card xit-feature-card" data-feature="touch_optimization">
+                <div class="xf-head">
+                    <h3>Touch response</h3>
+                    <label class="toggle-switch"><input type="checkbox" id="toggleTouch"><span class="toggle-slider"></span></label>
+                </div>
+                <p>Reduce input lag with touch and display settings.</p>
+                <button class="btn btn-outline btn-sm guide-btn" data-feature="touch_optimization">View device steps</button>
+            </div>
+            <div class="card xit-feature-card" data-feature="fps_optimization">
+                <div class="xf-head">
+                    <h3>Frame rate stability</h3>
+                    <label class="toggle-switch"><input type="checkbox" id="toggleFps"><span class="toggle-slider"></span></label>
+                </div>
+                <p>Hold a steady FPS instead of chasing peaks.</p>
+                <button class="btn btn-outline btn-sm guide-btn" data-feature="fps_optimization">View device steps</button>
+            </div>
+            <div class="card xit-feature-card" data-feature="low_ping_mode">
+                <div class="xf-head">
+                    <h3>Network stability</h3>
+                    <label class="toggle-switch"><input type="checkbox" id="togglePing"><span class="toggle-slider"></span></label>
+                </div>
+                <p>Cut jitter and packet loss during matches.</p>
+                <button class="btn btn-outline btn-sm guide-btn" data-feature="low_ping_mode">View device steps</button>
+            </div>
+            <div class="card xit-feature-card" data-feature="gaming_mode">
+                <div class="xf-head">
+                    <h3>Gaming mode</h3>
+                    <label class="toggle-switch"><input type="checkbox" id="toggleGaming"><span class="toggle-slider"></span></label>
+                </div>
+                <p>Block notifications and gestures while playing.</p>
+                <button class="btn btn-outline btn-sm guide-btn" data-feature="gaming_mode">View device steps</button>
+            </div>
+            <div class="card xit-feature-card" data-feature="performance_mode">
+                <div class="xf-head">
+                    <h3>Sustained performance</h3>
+                    <label class="toggle-switch"><input type="checkbox" id="togglePerf"><span class="toggle-slider"></span></label>
+                </div>
+                <p>Avoid thermal throttling in long sessions.</p>
+                <button class="btn btn-outline btn-sm guide-btn" data-feature="performance_mode">View device steps</button>
+            </div>
+            <div class="card xit-feature-card" data-feature="aim_assist_mode">
+                <div class="xf-head">
+                    <h3>Aim consistency</h3>
+                    <label class="toggle-switch"><input type="checkbox" id="toggleAim"><span class="toggle-slider"></span></label>
+                </div>
+                <p>Training routine to lock in your new sensitivity.</p>
+                <button class="btn btn-outline btn-sm guide-btn" data-feature="aim_assist_mode">View device steps</button>
+            </div>
+            <div class="card xit-feature-card" data-feature="sensitivity_lock">
+                <div class="xf-head">
+                    <h3>Keep your settings</h3>
+                    <label class="toggle-switch"><input type="checkbox" id="toggleLock"><span class="toggle-slider"></span></label>
+                </div>
+                <p>Stop updates and re-installs from resetting your sensi.</p>
+                <button class="btn btn-outline btn-sm guide-btn" data-feature="sensitivity_lock">View device steps</button>
+            </div>
+        </div>
+
+        <div class="config-actions">
+            <button class="btn btn-primary" id="btnSaveConfig">Save profile</button>
+            <button class="btn btn-outline" id="btnResetConfig">Reset</button>
+        </div>
+
+        <div class="action-grid">
+            <div class="card action-card">
+                <h3>XIT files</h3>
+                <p>Latest configuration files shared by the admin.</p>
+                <a href="#" class="btn btn-secondary btn-full" id="btnDownload" target="_blank" rel="noopener">Open download</a>
+            </div>
+            <div class="card action-card">
+                <h3>Setup tutorial</h3>
+                <p>Video walkthrough of the full setup.</p>
+                <a href="#" class="btn btn-secondary btn-full" id="btnSetup" target="_blank" rel="noopener">Watch setup</a>
+            </div>
+        </div>
+
+        <h2 class="section-subtitle">Recent generations</h2>
+        <div class="recent-list" id="recentList"><p class="recent-empty">No generations yet.</p></div>
+    </div>
+</section>
+
+<!-- Guide modal -->
+<div class="modal-overlay" id="guideModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+        <button class="modal-close" id="guideClose" aria-label="Close">&times;</button>
+        <h3 class="modal-title" id="guideTitle">Device steps</h3>
+        <p class="modal-sub" id="guideDevice"></p>
+        <ol class="guide-steps" id="guideSteps"></ol>
+        <p class="note" id="guideNote"></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/xit.js') }}"></script>
+{% endblock %}
